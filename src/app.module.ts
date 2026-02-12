@@ -35,11 +35,12 @@ import { ConfigModule } from '@nestjs/config';
       provide: APP_GUARD,
       useClass: AuthGuard,
     },
-    // Opcional: Para validar roles
+    // Opcional: Usa metadatos de resursos
     {
       provide: APP_GUARD,
       useClass: ResourceGuard,
     },
+    // Verifica los roles del usuario
     {
       provide: APP_GUARD,
       useClass: RoleGuard,
