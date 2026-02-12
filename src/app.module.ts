@@ -10,16 +10,18 @@ import {
 } from 'nest-keycloak-connect';
 import { AppController } from './app.controller';
 import { AuthService } from './auth/auth.service';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     HttpModule, // Necesario para hacer el post a Keycloak
     // Configuración de la librería de protección
     KeycloakConnectModule.register({
-      authServerUrl: 'http://localhost:7080', // Mapear URL del archivo .env
-      realm: 'demo-realm', // Mapear realm del archivo .env
-      clientId: 'nest-app', // Mapear client_id del archivo .env
-      secret: '0JIajE558dQxcTvgG9ZjDnmMgTBR06TD', // Mapear secret del archivo .env
+      authServerUrl: process.env.KEYCLOAK_AUTH_SERVER_URL,
+      realm: process.env.KEYCLOAK_REALM,
+      clientId: process.env.KEYCLOAK_CLIENT_ID,
+      secret: String(process.env.KEYCLOAK_SECRET),
       // Validación básica
       cookieKey: 'KEYCLOAK_JWT',
       logLevels: ['verbose'],

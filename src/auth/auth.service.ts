@@ -8,12 +8,13 @@ export class AuthService {
   constructor(private readonly httpService: HttpService) {}
 
   async login(username: string, password: string): Promise<any> {
-    const keycloakUrl = `http://localhost:7080/realms/demo-realm/protocol/openid-connect/token`; // Mapear datos de la URL del archivo .env
+    const keycloakUrl = `${process.env.KEYCLOAK_AUTH_SERVER_URL}/realms/${process.env.KEYCLOAK_REALM}/protocol/openid-connect/token`;
+    console.log(keycloakUrl);
 
     const params = new URLSearchParams();
     params.append('grant_type', 'password');
-    params.append('client_id', 'nest-app'); // Mapear client_id del archivo .env
-    params.append('client_secret', '0JIajE558dQxcTvgG9ZjDnmMgTBR06TD'); // Mapear secret del archivo .env
+    params.append('client_id', String(process.env.KEYCLOAK_CLIENT_ID));
+    params.append('client_secret', String(process.env.KEYCLOAK_SECRET));
     params.append('username', username);
     params.append('password', password);
 
