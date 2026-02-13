@@ -16,7 +16,7 @@ export class AppController {
     return await this.authService.login(body.username, body.password);
   }
 
-  // Endpoint WRITE
+  // 2. Endpoint WRITE
   // Controla quienes pueden hacer escritura del mensaje para este ejemplo
   // Los perfiles habilitados se establecen mediante la propiedad 'roles' del decorador @Roles
   @Get('write')
@@ -29,7 +29,7 @@ export class AppController {
   // Controla quienes pueden hacer lectura del mensaje para este ejemplo
   // Los perfiles habilitados se establecen mediante la propiedad 'roles' del decorador @Roles
   @Get('read')
-  @Roles({ roles: ['consultor'] })
+  @Roles({ roles: ['administrator', 'consultor'] })
   getProtectedMessage(@AuthenticatedUser() user: any) {
     return {
       message: 'Mensaje leído exitosamente',
