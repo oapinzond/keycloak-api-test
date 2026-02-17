@@ -20,7 +20,7 @@ export class AppController {
   // Controla quienes pueden hacer escritura del mensaje para este ejemplo
   // Los perfiles habilitados se establecen mediante la propiedad 'roles' del decorador @Roles
   @Get('write')
-  @Roles({ roles: ['administrator', 'developer'] })
+  @Roles({ roles: ['realm:administrator-global', 'realm:developer-global'] })
   writeMessage() {
     return { mesage: 'Mensaje escrito exitosamente' };
   }
@@ -29,14 +29,8 @@ export class AppController {
   // Controla quienes pueden hacer lectura del mensaje para este ejemplo
   // Los perfiles habilitados se establecen mediante la propiedad 'roles' del decorador @Roles
   @Get('read')
-  @Roles({ roles: ['administrator', 'consultor'] })
-  getProtectedMessage(@AuthenticatedUser() user: any) {
-    return {
-      message: 'Mensaje leído exitosamente',
-      userInfo: {
-        sub: user.sub,
-        username: user.preferred_username // Info extraída del token
-      },
-    };
+  @Roles({ roles: ['realm:administrator-global', 'realm:consultor-global'] })
+  getMessage() {
+    return { message: 'Mensaje leído exitosamente' };
   }
 }
