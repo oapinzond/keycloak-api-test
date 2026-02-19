@@ -11,6 +11,7 @@ import {
 import { AppController } from './app.controller';
 import { AuthService } from './auth/auth.service';
 import { ConfigModule } from '@nestjs/config';
+import { AuthController } from './auth/auth.controller';
 
 @Module({
   imports: [
@@ -27,7 +28,7 @@ import { ConfigModule } from '@nestjs/config';
       logLevels: ['verbose'],
     }),
   ],
-  controllers: [AppController],
+  controllers: [AuthController, AppController],
   providers: [
     AuthService,
     // Este Guard protege TODAS las rutas por defecto a menos que se use @Public()
